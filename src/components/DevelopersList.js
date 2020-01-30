@@ -1,19 +1,16 @@
 // src/components/DevelopersList.js
 import React from "react";
 import { connect } from "react-redux";
-import api from "../api";
+import { fetchDevelopers } from "../store/developers/actions";
+import Developer from "./Developer";
 // The "unconnected" inner component:
 class DevelopersList extends React.Component {
   componentDidMount() {
+    console.log("Stage 1: componentDidMount");
     // Do the data fetch...
-    api("/developers").then(data => {
-      // Tell the Redux store the data has been fetched
-      this.props.dispatch({
-        type: "developers/FETCHED",
-        payload: data
-      });
-    });
+    this.props.dispatch(fetchDevelopers);
   }
+
   render() {
     const loading = !this.props.devs;
     return (
@@ -22,7 +19,10 @@ class DevelopersList extends React.Component {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <p>We have {this.props.devs.count} developers!</p>
+          <div>
+            <p>We have {this.props.devs.count} developers!</p>
+            <Developer />
+          </div>
         )}
       </div>
     );

@@ -1,6 +1,7 @@
 // src/components/DevelopersList.js
 import React from "react";
 import { connect } from "react-redux";
+import uuid from "uuid";
 
 // The "unconnected" inner component:
 class Developer extends React.Component {
@@ -8,14 +9,19 @@ class Developer extends React.Component {
     const loading = !this.props.devs;
     return (
       <div>
-        <h2>Developer Profile</h2>
+        <h2>Developer Profiles</h2>
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div>
-            <p>Name: {this.props.devs.rows[0].name}</p>
-            <p>Email: {this.props.devs.rows[0].email}</p>
-          </div>
+          this.props.devs.rows.map(dev => {
+            return (
+              <div key={uuid.v4()}>
+                <p>
+                  Name: {dev.name} | Email: {dev.email}
+                </p>
+              </div>
+            );
+          })
         )}
       </div>
     );

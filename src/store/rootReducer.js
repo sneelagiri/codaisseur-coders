@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
 import developers from "./developers/reducer";
+import posts from "./post/reducer";
+
 export default combineReducers({
   havingFun: havingFunReducer,
-  developers: developers
+  developers: developers,
+  posts: posts
   // we can add more "slice" subreducers here later on...
 });
 function havingFunReducer(state = "yes", action) {
